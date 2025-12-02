@@ -1,0 +1,545 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Módulo 4: Mis metas financieras SMART</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: #10172a;
+      --muted: #c6cce2;
+      --text: #e9ecf8;
+      --primary: #7c9cff;
+      --primary-strong: #5a7bff;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --ring: rgba(124,156,255,.45);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius-xl: 18px;
+      --radius-md: 14px;
+      --radius-sm: 8px;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f5f7fb;
+        --card: #ffffff;
+        --muted: #5a647d;
+        --text: #101423;
+        --shadow: 0 10px 30px rgba(16,20,35,.08);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(124,156,255,.25), transparent 60%),
+        radial-gradient(900px 500px at -10% 10%, rgba(34,197,94,.18), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto 40px;
+    }
+
+    .header {
+      padding: 24px 24px 10px;
+      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        text-align: center;
+      }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(124,156,255,.18);
+      color: var(--primary);
+      font-weight: 600;
+      font-size: .8rem;
+      letter-spacing: .3px;
+      margin-bottom: 10px;
+    }
+
+    .badge i {
+      font-size: 0.85rem;
+    }
+
+    .title {
+      margin: 0 0 6px 0;
+      font-size: clamp(1.7rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .instructions {
+      margin: 18px 0;
+      padding: 14px 16px;
+      background: rgba(124,156,255,.08);
+      border: 1px solid rgba(124,156,255,.15);
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .instructions i {
+      color: var(--primary);
+    }
+
+    main {
+      margin-top: 10px;
+    }
+
+    .steps-indicator {
+      display: flex;
+      gap: 8px;
+      margin: 0 0 16px;
+      font-size: 0.8rem;
+    }
+
+    .step-pill {
+      flex: 1;
+      padding: 6px 10px;
+      border-radius: 999px;
+      text-align: center;
+      background: rgba(148,163,184,.14);
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .step-pill--active {
+      background: rgba(124,156,255,.25);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(260px, 1fr);
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(124,156,255,.15);
+      box-shadow: var(--shadow);
+      padding: 20px 22px;
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card h2 i {
+      font-size: 0.95rem;
+      color: var(--primary);
+    }
+
+    .card p {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0 12px;
+    }
+
+    .pill-tag {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(148,163,184,.18);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-tag i {
+      font-size: 0.75rem;
+    }
+
+    .info-card {
+      background: rgba(124,156,255,.1);
+      border-left: 4px solid var(--primary);
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      margin: 10px 0 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.88rem;
+    }
+
+    .info-card i {
+      color: var(--primary);
+      margin-top: 3px;
+      font-size: 0.85rem;
+    }
+
+    .info-card strong {
+      color: var(--text);
+    }
+
+    .list-compact {
+      margin: 6px 0 0 16px;
+      padding: 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+      list-style: disc;
+    }
+
+    .list-compact li {
+      margin-bottom: 3px;
+    }
+
+    .highlight-badges {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0,1fr));
+      gap: 8px;
+      margin: 12px 0 4px;
+    }
+
+    .highlight-badge {
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      background: rgba(15,23,42,.8);
+      border: 1px solid rgba(148,163,184,.35);
+    }
+
+    .highlight-badge span {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .highlight-badge strong {
+      font-size: 0.9rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+      padding: 9px 16px;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+      color: #fff;
+      box-shadow: 0 4px 15px var(--ring);
+      transition: all .2s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 7px 22px var(--ring);
+      filter: brightness(1.05);
+    }
+
+    .btn-primary i {
+      font-size: 0.9rem;
+    }
+
+    .hint {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .mini-section-title {
+      margin: 10px 0 4px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 6px 0 8px;
+    }
+
+    .chip {
+      font-size: 0.76rem;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(148,163,184,.14);
+      color: var(--muted);
+    }
+
+    .summary-card {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 8px;
+      margin: 10px 0 4px;
+    }
+
+    .summary-item {
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      background: rgba(15,23,42,.8);
+      border: 1px solid rgba(148,163,184,.35);
+    }
+
+    .summary-item span {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .summary-item strong {
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="badge">
+        <i class="fas fa-layer-group"></i>
+        Módulo 4 · Ahorra con propósito
+      </div>
+      <h1 class="title">Actividad: Mis metas financieras SMART</h1>
+      <p class="subtitle">
+        Define de 1 a 3 metas de ahorro claras, realistas y con fecha límite usando el formato SMART.
+      </p>
+    </header>
+
+    <main>
+      <section class="instructions" aria-label="Instrucciones generales de la actividad">
+        <i class="fas fa-info-circle"></i>
+        <div>
+          <strong>Tiempo estimado: 20–25 minutos.</strong> Piensa tus metas, conviértelas en SMART y elige cuál es tu prioridad.
+        </div>
+      </section>
+
+      <nav class="steps-indicator" aria-label="Pasos de la actividad">
+        <div class="step-pill step-pill--active">1 · Elige tus metas</div>
+        <div class="step-pill">2 · Hazlas SMART</div>
+        <div class="step-pill">3 · Ordena y prioriza</div>
+      </nav>
+
+      <div class="layout">
+        <!-- LADO IZQUIERDO: METAS + SMART -->
+        <section class="card" aria-labelledby="paso1-titulo">
+          <h2 id="paso1-titulo">
+            <i class="fas fa-bullseye"></i>
+            Paso 1 y 2: Elige tus metas y hazlas SMART
+          </h2>
+
+          <div class="pill-row">
+            <span class="pill-tag"><i class="fas fa-piggy-bank"></i> 1 a 3 metas</span>
+            <span class="pill-tag"><i class="fas fa-clock"></i> Corto plazo (3–6 meses)</span>
+            <span class="pill-tag"><i class="fas fa-bullseye-arrow"></i> Formato SMART</span>
+          </div>
+
+          <div class="mini-section-title">1. Piensa en lo que realmente quieres lograr</div>
+          <p style="margin-bottom: 6px;">
+            Elige de 1 a 3 metas que de verdad te importen. Pueden ser cosas como:
+          </p>
+          <div class="chips">
+            <span class="chip">Viaje corto</span>
+            <span class="chip">Gadget / celular</span>
+            <span class="chip">Curso o taller</span>
+            <span class="chip">Pagar una deuda pequeña</span>
+          </div>
+
+          <div class="mini-section-title">2. Desglosa cada meta en SMART</div>
+          <p style="margin-bottom: 6px;">
+            Para cada meta, responde estas cinco preguntas en tu plantilla o tabla:
+          </p>
+
+          <div class="highlight-badges">
+            <div class="highlight-badge">
+              <span>S</span>
+              <strong>Específica</strong>
+              <p style="margin:4px 0 0; font-size:0.78rem; color:var(--muted);">
+                ¿Qué quiero lograr exactamente?
+              </p>
+            </div>
+            <div class="highlight-badge">
+              <span>M</span>
+              <strong>Medible</strong>
+              <p style="margin:4px 0 0; font-size:0.78rem; color:var(--muted);">
+                ¿Cuánto dinero necesito?
+              </p>
+            </div>
+            <div class="highlight-badge">
+              <span>A</span>
+              <strong>Alcanzable</strong>
+              <p style="margin:4px 0 0; font-size:0.78rem; color:var(--muted);">
+                ¿Es realista con lo que gano?
+              </p>
+            </div>
+            <div class="highlight-badge">
+              <span>R</span>
+              <strong>Relevante</strong>
+              <p style="margin:4px 0 0; font-size:0.78rem; color:var(--muted);">
+                ¿Por qué es importante para mí ahora?
+              </p>
+            </div>
+            <div class="highlight-badge">
+              <span>T</span>
+              <strong>Tiempo</strong>
+              <p style="margin:4px 0 0; font-size:0.78rem; color:var(--muted);">
+                ¿Para cuándo la quiero lograr?
+              </p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <i class="fas fa-pen" aria-hidden="true"></i>
+            <div>
+              <strong>Redacta tu meta en una sola frase SMART.</strong>
+              <p style="margin:4px 0 0; font-size:0.82rem; color:var(--muted);">
+                Ejemplo: <em>“Ahorrar $3,000 en 3 meses para pagar un curso de fotografía que me ayudará a mejorar mi portafolio.”</em>
+              </p>
+              <p style="margin:4px 0 0; font-size:0.82rem; color:var(--muted);">
+                Haz lo mismo con cada una de tus metas.
+              </p>
+            </div>
+          </div>
+
+          <a 
+            class="btn-primary" 
+            href="#"
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+            Abrir plantilla de metas SMART
+          </a>
+          <!-- Reemplaza el # de arriba con el enlace real a tu Google Sheets o formulario -->
+
+          <p class="hint">
+            Evita frases vagas tipo “quiero ahorrar más”. Siempre incluye monto, tiempo y para qué.
+          </p>
+        </section>
+
+        <!-- LADO DERECHO: PRIORIDAD + PRODUCTO -->
+        <aside class="card" aria-labelledby="paso3-titulo">
+          <h2 id="paso3-titulo">
+            <i class="fas fa-list-ol"></i>
+            Paso 3: Prioriza y arma tu producto final
+          </h2>
+
+          <div class="mini-section-title">1. Ordena tus metas por prioridad</div>
+          <p style="margin-bottom: 6px;">
+            Decide cuál es tu:
+          </p>
+          <div class="summary-card">
+            <div class="summary-item">
+              <span>Meta 1</span>
+              <strong>Prioritaria</strong>
+            </div>
+            <div class="summary-item">
+              <span>Meta 2</span>
+              <strong>Importante</strong>
+            </div>
+            <div class="summary-item">
+              <span>Meta 3</span>
+              <strong>Opcional</strong>
+            </div>
+          </div>
+          <p style="margin-top:6px; font-size:0.86rem; color:var(--muted);">
+            Escribe una frase corta explicando por qué la Meta 1 es tu prioridad.
+          </p>
+
+          <div class="mini-section-title">2. Producto esperado</div>
+          <ul class="list-compact">
+            <li>Una tabla o ficha con 1 a 3 metas, cada una desglosada en S, M, A, R y T.</li>
+            <li>Una versión final redactada de cada meta en formato SMART.</li>
+            <li>Un breve texto indicando cuál es la meta prioritaria y por qué.</li>
+          </ul>
+
+          <div class="mini-section-title">3. ¿Qué se tomará en cuenta?</div>
+          <ul class="list-compact">
+            <li>Que cada meta esté realmente en formato SMART (clara, medible, con fecha).</li>
+            <li>Que las cantidades y tiempos sean realistas para un estudiante.</li>
+            <li>Que la prioridad muestre reflexión personal (por qué esa meta importa ahora).</li>
+          </ul>
+
+          <div class="chips">
+            <span class="chip">Claridad</span>
+            <span class="chip">Realismo</span>
+            <span class="chip">Reflexión personal</span>
+          </div>
+
+          <p class="hint">
+            Pregúntate: “¿Si otra persona lee mi meta, entendería cuánto quiero ahorrar, para cuándo y para qué?” Si la respuesta es sí, vas muy bien.
+          </p>
+        </aside>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
+```
